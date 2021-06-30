@@ -1,6 +1,6 @@
 # How to run the App?
 
-https://drive.google.com/file/d/1JeNZmth9y3YRFIbvBYL-oN6VURqCP08k/view?usp=sharing
+https://drive.google.com/file/d/1dtWs96AkQ4lSTyZitKiNIrcAnfmFOSjc/view?usp=sharing
 
 Just **download the app from the link above** or checkout the url from github and then, **get dependencies** **(pub get in pubspec.yaml)** in your IDE, then **run main.dart**.
 
