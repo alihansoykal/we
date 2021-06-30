@@ -167,7 +167,7 @@ class CardContent extends StatelessWidget {
                     borderRadius: BorderRadius.circular(32),
                   ),
                   onPressed: () {
-                    popUp(context,
+                    popUp(context, true,
                         "We have received your request and we will inform you when your transaction takes place.");
                   },
                 ),

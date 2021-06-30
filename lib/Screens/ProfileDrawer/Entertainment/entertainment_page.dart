@@ -27,7 +27,7 @@ class EntertainmentPage extends StatelessWidget {
             child: IconButton(
                 icon: Icon(Icons.share_rounded),
                 onPressed: () {
-                  popUp(context, "slm");
+                  popUp(context, false, "slm");
                 }),
           ),
         ],
@@ -47,8 +47,8 @@ class EntertainmentPage extends StatelessWidget {
                 .map((item) => Container(
                       child: Center(
                           child: Image.asset(
-                        item,
-                        fit: BoxFit.cover,
+                            item,
+                        fit: BoxFit.fill,
                         height: height,
                       )),
                     ))

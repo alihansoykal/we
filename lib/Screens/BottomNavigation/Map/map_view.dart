@@ -6,7 +6,6 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:WE/Resources/constants.dart';
 import 'package:WE/Screens/BottomNavigation/Map/map_feedback.dart';
 import 'package:WE/Services/locations_service.dart' as locations;
-import 'package:WE/Screens/ProfileDrawer/Feedback/feedback_page.dart';
 
 import 'dart:ui' as ui;
 
@@ -71,7 +70,7 @@ class _MapViewState extends State<MapView> {
         appBar: AppBar(
           title: Text(
             "HeroStations",
-            style: TextStyle(fontFamily: "Panthera"),
+            style: TextStyle(fontFamily: "Panthera", fontSize: 30),
           ),
           centerTitle: true,
           actions: [

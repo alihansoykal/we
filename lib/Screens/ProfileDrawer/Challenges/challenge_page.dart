@@ -121,8 +121,8 @@ class ChallengePage extends StatelessWidget {
                           iconSize: 100,
                           icon: Image.asset('assets/Icons/perserverance.png'),
                           onPressed: () {
-                            popUp(
-                                context, "You dazzle with your perseverance!");
+                            popUp(context, "You dazzle with your perseverance!",
+                                true);
                           },
                         ),
                       ),
@@ -180,8 +180,10 @@ class ChallengePage extends StatelessWidget {
                         padding: const EdgeInsets.all(8),
                         indicator: IconButton(
                             onPressed: () {
-                              popUp(context,
-                                  "You have to complete the challenge to unlock.");
+                              popUp(
+                                  context,
+                                  "You have to complete the challenge to unlock.",
+                                  true);
                             },
                             icon: Image.asset('assets/Icons/padlock.png')),
                       ),
@@ -243,8 +245,10 @@ class ChallengePage extends StatelessWidget {
                         padding: const EdgeInsets.all(8),
                         indicator: IconButton(
                             onPressed: () {
-                              popUp(context,
-                                  "You have to complete the challenge to unlock.");
+                              popUp(
+                                  context,
+                                  "You have to complete the challenge to unlock.",
+                                  true);
                             },
                             icon: Image.asset('assets/Icons/padlock.png')),
                       ),
@@ -302,8 +306,10 @@ class ChallengePage extends StatelessWidget {
                         padding: const EdgeInsets.all(8),
                         indicator: IconButton(
                             onPressed: () {
-                              popUp(context,
-                                  "You have to complete the challenge to unlock.");
+                              popUp(
+                                  context,
+                                  "You have to complete the challenge to unlock.",
+                                  true);
                             },
                             icon: Image.asset('assets/Icons/padlock.png')),
                       ),
@@ -365,8 +371,10 @@ class ChallengePage extends StatelessWidget {
                         padding: const EdgeInsets.all(8),
                         indicator: IconButton(
                             onPressed: () {
-                              popUp(context,
-                                  "You have to complete the challenge to unlock.");
+                              popUp(
+                                  context,
+                                  "You have to complete the challenge to unlock.",
+                                  true);
                             },
                             icon: Image.asset('assets/Icons/padlock.png')),
                       ),
@@ -417,8 +425,10 @@ class ChallengePage extends StatelessWidget {
                           iconSize: 200,
                           icon: Image.asset("assets/heroStationIcon.png"),
                           onPressed: () {
-                            popUp(context,
-                                "To reach the biggest challenge, you must first complete others.");
+                            popUp(
+                                context,
+                                "To reach the biggest challenge, you must first complete others.",
+                                true);
                           }),
                     ),
                     SizedBox(

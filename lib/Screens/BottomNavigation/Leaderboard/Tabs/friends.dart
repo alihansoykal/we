@@ -45,7 +45,9 @@ class FriendsTab extends StatelessWidget {
                             shape: BoxShape.rectangle,
                             image: DecorationImage(
                                 fit: BoxFit.cover,
-                                image: AssetImage(leaderboardIcons[index]))),
+                                image: AssetImage(
+                                  leaderboardIcons[index],
+                                ))),
                       ),
                       leading: Container(
                         height: 7 * SizeConfig.heightMultiplier,

@@ -40,7 +40,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
           style: TextStyle(fontFamily: "Panthera", fontSize: 24),
         ),
       ),
-      resizeToAvoidBottomPadding: false,
+      //resizeToAvoidBottomPadding: false,
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(5.0),

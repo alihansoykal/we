@@ -57,14 +57,14 @@ class _MapFeedbackPageState extends State<MapFeedbackPage> {
     }
   }
 
-  _launchURLMail() async {
-    const url = 'mailto:support@we.com?subject=WE&body=Feedback';
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
+  //_launchURLMail() async {
+  //  const url = 'mailto:support@we.com?subject=WE&body=Feedback';
+  // if (await canLaunch(url)) {
+  //    await launch(url);
+  //  } else {
+  //    throw 'Could not launch $url';
+  //  }
+  //}
 
   TextEditingController t1 = TextEditingController();
   TextEditingController t2 = TextEditingController();
@@ -74,7 +74,7 @@ class _MapFeedbackPageState extends State<MapFeedbackPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+      //resizeToAvoidBottomPadding: false,
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(5.0),

@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:WE/Resources/SizeConfig.dart';
-import 'package:WE/Resources/components/text_field_container.dart';
 import 'package:WE/Resources/constants.dart';
 import 'package:WE/Screens/BottomNavigation/bottom_navigation.dart';
 import 'package:WE/Services/user_service.dart';
@@ -66,6 +65,7 @@ class _EditProfileState extends State<EditProfile> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     CollectionReference users = FirebaseFirestore.instance.collection('users');
     var firebaseUser = FirebaseAuth.instance.currentUser;
     return FutureBuilder<DocumentSnapshot>(
@@ -79,210 +79,210 @@ class _EditProfileState extends State<EditProfile> {
           Map<String, dynamic> data = snapshot.data.data();
           return Scaffold(
               body: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: ListView(
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    uploadImage();
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: imageUrl != null
-                        ? Container(
-                            height: 22 * SizeConfig.heightMultiplier,
-                            width: 44 * SizeConfig.widthMultiplier,
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                image: DecorationImage(
-                                    fit: BoxFit.cover,
-                                    image: NetworkImage(data["avatar"]))),
-                          )
-                        : Icon(
-                            Icons.account_circle_rounded,
-                            size: 150,
-                            color: Colors.grey,
-                          ),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    uploadImage();
-                  },
-                  child: Container(
-                    child: Center(
-                        child: Text(
-                      "Click to add or change the profile picture.",
-                      style: TextStyle(color: Colors.grey),
-                    )),
-                  ),
-                ),
-                SizedBox(height: 10),
-                ListTile(
-                    title: Text(
-                      'Username:',
-                      style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 2 * SizeConfig.textMultiplier,
+                padding: const EdgeInsets.all(16.0),
+                child: ListView(
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        uploadImage();
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: imageUrl != null
+                            ? Container(
+                          height: 22 * SizeConfig.heightMultiplier,
+                          width: 44 * SizeConfig.widthMultiplier,
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image: NetworkImage(data["avatar"]))),
+                        )
+                            : Icon(
+                          Icons.account_circle_rounded,
+                          size: 150,
+                          color: Colors.grey,
+                        ),
                       ),
                     ),
-                    subtitle: TextField(
-                      onSubmitted: (value1) {
-                        setState(() {
-                          _newUsername = value1.trim();
-                          brewCollection.doc(uid).update({
+                    GestureDetector(
+                      onTap: () {
+                        uploadImage();
+                      },
+                      child: Container(
+                        child: Center(
+                            child: Text(
+                              "Click to add or change the profile picture.",
+                              style: TextStyle(color: Colors.grey),
+                            )),
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    ListTile(
+                        title: Text(
+                          'Username:',
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 2 * SizeConfig.textMultiplier,
+                          ),
+                        ),
+                        subtitle: TextField(
+                          onSubmitted: (value1) {
+                            setState(() {
+                              _newUsername = value1.trim();
+                              brewCollection.doc(currentUid).update({
                             "name": _newUsername,
                           });
-                        });
-                      },
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 3.5 * SizeConfig.textMultiplier,
-                          fontWeight: FontWeight.bold),
-                      decoration: InputDecoration(
-                        hintStyle: TextStyle(
-                            color: Colors.white,
-                            fontSize: 3.5 * SizeConfig.textMultiplier,
-                            fontWeight: FontWeight.bold),
-                        hintText: data["name"],
-                      ),
-                    )),
-                ListTile(
-                    title: Text(
-                      'Email:',
-                      style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 2 * SizeConfig.textMultiplier,
-                      ),
-                    ),
-                    subtitle: TextField(
-                      onSubmitted: (value) {
-                        setState(() {
-                          _newEmail = value.trim();
-                          brewCollection.doc(uid).update({
+                            });
+                          },
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 3.5 * SizeConfig.textMultiplier,
+                              fontWeight: FontWeight.bold),
+                          decoration: InputDecoration(
+                            hintStyle: TextStyle(
+                                color: Colors.white,
+                                fontSize: 3.5 * SizeConfig.textMultiplier,
+                                fontWeight: FontWeight.bold),
+                            hintText: data["name"],
+                          ),
+                        )),
+                    ListTile(
+                        title: Text(
+                          'Email:',
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 2 * SizeConfig.textMultiplier,
+                          ),
+                        ),
+                        subtitle: TextField(
+                          onSubmitted: (value) {
+                            setState(() {
+                              _newEmail = value.trim();
+                              brewCollection.doc(currentUid).update({
                             "email": _newEmail,
                           });
-                        });
-                      },
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 3.5 * SizeConfig.textMultiplier,
-                          fontWeight: FontWeight.bold),
-                      decoration: InputDecoration(
-                        hintStyle: TextStyle(
-                            color: Colors.white,
-                            fontSize: 3.5 * SizeConfig.textMultiplier,
-                            fontWeight: FontWeight.bold),
-                        hintText: data["email"],
-                      ),
-                    )),
-                ListTile(
-                    title: Text(
-                      'Password:',
-                      style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 2 * SizeConfig.textMultiplier,
-                      ),
-                    ),
-                    subtitle: TextField(
-                      onSubmitted: (value1) {
-                        setState(() {
-                          _newPassword = value1.trim();
-                          brewCollection.doc(uid).update({
+                            });
+                          },
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 3.5 * SizeConfig.textMultiplier,
+                              fontWeight: FontWeight.bold),
+                          decoration: InputDecoration(
+                            hintStyle: TextStyle(
+                                color: Colors.white,
+                                fontSize: 3.5 * SizeConfig.textMultiplier,
+                                fontWeight: FontWeight.bold),
+                            hintText: data["email"],
+                          ),
+                        )),
+                    ListTile(
+                        title: Text(
+                          'Password:',
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 2 * SizeConfig.textMultiplier,
+                          ),
+                        ),
+                        subtitle: TextField(
+                          onSubmitted: (value1) {
+                            setState(() {
+                              _newPassword = value1.trim();
+                              brewCollection.doc(currentUid).update({
                             "password": _newPassword,
                           });
-                        });
-                      },
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 3.5 * SizeConfig.textMultiplier,
-                          fontWeight: FontWeight.bold),
-                      decoration: InputDecoration(
-                        hintStyle: TextStyle(
-                            color: Colors.white,
-                            fontSize: 3.5 * SizeConfig.textMultiplier,
-                            fontWeight: FontWeight.bold),
-                        hintText: "*******",
-                      ),
-                    )),
-                ListTile(
-                    title: Text(
-                      'City:',
-                      style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 2 * SizeConfig.textMultiplier,
-                      ),
-                    ),
-                    subtitle: TextField(
-                      onSubmitted: (value) {
-                        setState(() {
-                          _newCity = value.trim();
-                          brewCollection.doc(uid).update({
+                            });
+                          },
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 3.5 * SizeConfig.textMultiplier,
+                              fontWeight: FontWeight.bold),
+                          decoration: InputDecoration(
+                            hintStyle: TextStyle(
+                                color: Colors.white,
+                                fontSize: 3.5 * SizeConfig.textMultiplier,
+                                fontWeight: FontWeight.bold),
+                            hintText: "*******",
+                          ),
+                        )),
+                    ListTile(
+                        title: Text(
+                          'City:',
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 2 * SizeConfig.textMultiplier,
+                          ),
+                        ),
+                        subtitle: TextField(
+                          onSubmitted: (value) {
+                            setState(() {
+                              _newCity = value.trim();
+                              brewCollection.doc(currentUid).update({
                             "city": _newCity,
                           });
+                            });
+                          },
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 3.5 * SizeConfig.textMultiplier,
+                              fontWeight: FontWeight.bold),
+                          decoration: InputDecoration(
+                            hintStyle: TextStyle(
+                                color: Colors.white,
+                                fontSize: 3.5 * SizeConfig.textMultiplier,
+                                fontWeight: FontWeight.bold),
+                            hintText: data["city"],
+                          ),
+                        )),
+                    ListTile(
+                      title: Text(
+                        'Favorite Superhero:',
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 2 * SizeConfig.textMultiplier,
+                        ),
+                      ),
+                      subtitle: TextField(
+                        onSubmitted: (value) {
+                          setState(() {
+                            _newSuperhero = value.trim();
+                            brewCollection.doc(currentUid).update({
+                          "superhero": _newSuperhero,
                         });
-                      },
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 3.5 * SizeConfig.textMultiplier,
-                          fontWeight: FontWeight.bold),
-                      decoration: InputDecoration(
-                        hintStyle: TextStyle(
+                          });
+                        },
+                        style: TextStyle(
                             color: Colors.white,
                             fontSize: 3.5 * SizeConfig.textMultiplier,
                             fontWeight: FontWeight.bold),
-                        hintText: data["city"],
-                      ),
-                    )),
-                ListTile(
-                  title: Text(
-                    'Favorite Superhero:',
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 2 * SizeConfig.textMultiplier,
-                    ),
-                  ),
-                  subtitle: TextField(
-                    onSubmitted: (value) {
-                      setState(() {
-                        _newSuperhero = value.trim();
-                        brewCollection.doc(uid).update({
-                          "superhero": _newSuperhero,
-                        });
-                      });
-                    },
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 3.5 * SizeConfig.textMultiplier,
-                        fontWeight: FontWeight.bold),
-                    decoration: InputDecoration(
-                      hintStyle: TextStyle(
-                          color: Colors.white,
-                          fontSize: 3.5 * SizeConfig.textMultiplier,
-                          fontWeight: FontWeight.bold),
-                      hintText: data["superhero"],
-                    ),
-                  ),
-                ),
-                ListTile(
-                    title: Text(
-                      'Address:',
-                      style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 2 * SizeConfig.textMultiplier,
+                        decoration: InputDecoration(
+                          hintStyle: TextStyle(
+                              color: Colors.white,
+                              fontSize: 3.5 * SizeConfig.textMultiplier,
+                              fontWeight: FontWeight.bold),
+                          hintText: data["superhero"],
+                        ),
                       ),
                     ),
-                    subtitle: TextField(
-                      onSubmitted: (value) {
-                        setState(() {
-                          _newAddress = value.trim();
-                          brewCollection.doc(uid).update({
+                    ListTile(
+                        title: Text(
+                          'Address:',
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 2 * SizeConfig.textMultiplier,
+                          ),
+                        ),
+                        subtitle: TextField(
+                          onSubmitted: (value) {
+                            setState(() {
+                              _newAddress = value.trim();
+                              brewCollection.doc(currentUid).update({
                             "address": _newAddress,
                           });
-                        });
-                      },
-                      style: TextStyle(
-                          color: Colors.white,
+                            });
+                          },
+                          style: TextStyle(
+                              color: Colors.white,
                           fontSize: 3.5 * SizeConfig.textMultiplier,
                           fontWeight: FontWeight.bold),
                       decoration: InputDecoration(
@@ -293,26 +293,33 @@ class _EditProfileState extends State<EditProfile> {
                         hintText: data["address"],
                       ),
                     )),
-                FlatButton(
-                    color: kPrimaryColor,
-                    minWidth: 100,
-                    child: Text(
-                      "Confirm",
-                      style: TextStyle(color: Colors.black, fontSize: 16),
-                    ),
+                TextButton(
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return BottomNavigation();
-                          },
+                      setState(() {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return BottomNavigation();
+                            },
+                          ),
+                        );
+                      });
+                    },
+                    child: Container(
+                      color: kPrimaryColor,
+                      height: size.height * 0.05,
+                      width: size.width * 0.9,
+                      child: Center(
+                        child: Text(
+                          "Confirm",
+                          style: TextStyle(color: Colors.black, fontSize: 16),
                         ),
-                      );
-                    })
+                      ),
+                    ))
               ],
-            ),
-          ));
+                ),
+              ));
         }
         return Center(
           child: CircularProgressIndicator(),

@@ -1,5 +1,6 @@
 import 'package:WE/Resources/SizeConfig.dart';
 import 'package:WE/Screens/BottomNavigation/Feed/feed_screen.dart';
+import 'package:WE/Screens/BottomNavigation/Leaderboard/leaderboard.dart';
 import 'package:WE/Screens/Intro/welcome_screen.dart';
 import 'package:WE/Screens/ProfileDrawer/Badges/badges_page.dart';
 import 'package:WE/Screens/ProfileDrawer/Challenges/challenge_page.dart';
@@ -10,9 +11,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:WE/Resources/constants.dart';
-import 'package:WE/Services/ChatService/chat_screen.dart';
 import 'Entertainment/entertainment_page.dart';
 import '../../Services/profile_search.dart';
+import 'package:shimmer/shimmer.dart';
 
 class DrawerItem {
   String title;
@@ -88,7 +89,6 @@ class ProfileDrawerState extends State<ProfileDrawer> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     List<Widget> drawerOptions = [];
     for (var i = 0; i < widget.drawerItems.length - 1; i++) {
       var d = widget.drawerItems[i];
@@ -139,16 +139,20 @@ class ProfileDrawerState extends State<ProfileDrawer> {
                   IconButton(
                     icon: Container(
                         width: 30,
-                        child: Image.asset(
-                          "assets/Icons/send.png",
-                          color: Colors.white,
+                        child: Shimmer.fromColors(
+                          baseColor: Colors.white,
+                          highlightColor: kPrimaryColor,
+                          child: Image.asset(
+                            "assets/Images/BottomNavigation/leaderboardIcon.png",
+                            color: Colors.white,
+                          ),
                         )),
                     onPressed: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return ChatPage();
+                            return Leaderboard();
                           },
                         ),
                       );

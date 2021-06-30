@@ -34,7 +34,7 @@ class _HerProfileState extends State<HerProfile> {
       ),
       backgroundColor: Color(0xffF8F8FA),
       body: Stack(
-        overflow: Overflow.visible,
+        clipBehavior: Clip.none,
         children: <Widget>[
           Container(
             color: kSecondaryColor,
@@ -230,7 +230,7 @@ class _HerProfileState extends State<HerProfile> {
                                 icon: Image.asset("assets/Icons/swords.png"),
                                 onPressed: () {
                                   hideWidget();
-                                  popUp(context,
+                                  popUp(context, false,
                                       "You challenged Aysu. You can no longer see who won until you are in a duel. Have fun ...");
 
                                   //_number();

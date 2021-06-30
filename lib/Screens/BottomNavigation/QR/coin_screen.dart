@@ -1,6 +1,6 @@
 import 'package:WE/Screens/BottomNavigation/bottom_navigation.dart';
-import 'package:WE/Services/user_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -19,9 +19,15 @@ class CoinScreenExample extends StatefulWidget {
 }
 
 class _CoinScreenExampleState extends State<CoinScreenExample> {
+  List<int> coinsList = [];
+  List<int> recycledList = [];
+  List<int> expList = [];
+
   int measuredWeight;
   int measuredCoin;
   final databaseReference = FirebaseDatabase.instance.reference();
+  final currentUid = FirebaseAuth.instance.currentUser.uid;
+  CollectionReference users = FirebaseFirestore.instance.collection("users");
 
   int doubleWeight(int number) {
     if (number != 0) {
@@ -34,7 +40,7 @@ class _CoinScreenExampleState extends State<CoinScreenExample> {
   void initState() {
     super.initState();
     databaseReference
-        .child(widget.qrResult==null?widget.currentText:widget.qrResult)
+        .child(widget.qrResult == null ? widget.currentText : widget.qrResult)
         .once()
         .then((DataSnapshot data) {
       print(data.value["WEIGHT"]);
@@ -43,7 +49,43 @@ class _CoinScreenExampleState extends State<CoinScreenExample> {
         measuredWeight = data.value["WEIGHT"];
         measuredCoin = measuredWeight + measuredWeight;
       });
+      getUserData("coins").then((value) {
+        coinsList.clear();
+        coinsList.add(int.parse(value));
+      });
+      getUserData("exp").then((value) {
+        expList.clear();
+        expList.add(int.parse(value));
+      });
+      getUserData("recycled").then((value) {
+        recycledList.clear();
+        recycledList.add(int.parse(value));
+      });
     });
+  }
+
+  Future<String> getUserData(str) async {
+    var document = await users.doc(currentUid);
+    document.get().then((value) => print(value));
+    var collection = FirebaseFirestore.instance.collection('users');
+    var docSnapshot = await collection.doc(currentUid).get();
+    if (docSnapshot.exists) {
+      Map<String, dynamic> data = docSnapshot.data();
+      var coins = data[str];
+      return coins.toString();
+    }
+  }
+
+  Future<void> getReward() {
+    return users
+        .doc(currentUid)
+        .update({
+          'recycled': measuredWeight + recycledList.first,
+          "coins": measuredWeight * 2 + coinsList.first,
+          // "exp": expList.first+ measuredWeight/100,
+        })
+        .then((value) => print("User Updated"))
+        .catchError((error) => print("Failed to update user: $error"));
   }
 
   @override
@@ -54,6 +96,7 @@ class _CoinScreenExampleState extends State<CoinScreenExample> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () {
+            getReward();
             Navigator.push(
               context,
               MaterialPageRoute(
@@ -79,7 +122,7 @@ class _CoinScreenExampleState extends State<CoinScreenExample> {
             Expanded(
               child: Padding(
                 padding:
-                const EdgeInsets.symmetric(horizontal: 8.0, vertical: 24),
+                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 24),
                 child: PhysicalModel(
                   elevation: 10.0,
                   shape: BoxShape.rectangle,
@@ -101,11 +144,11 @@ class _CoinScreenExampleState extends State<CoinScreenExample> {
                               ),
                               Row(
                                 mainAxisAlignment:
-                                MainAxisAlignment.spaceEvenly,
+                                    MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Column(
                                     mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
+                                        MainAxisAlignment.spaceEvenly,
                                     children: [
                                       PhysicalModel(
                                         elevation: 20.0,
@@ -148,7 +191,7 @@ class _CoinScreenExampleState extends State<CoinScreenExample> {
                               ),
                               Row(
                                 mainAxisAlignment:
-                                MainAxisAlignment.spaceEvenly,
+                                    MainAxisAlignment.spaceEvenly,
                                 children: [
                                   PhysicalModel(
                                     elevation: 20.0,
@@ -157,7 +200,7 @@ class _CoinScreenExampleState extends State<CoinScreenExample> {
                                     color: kSecondaryColor,
                                     child: ClipRRect(
                                       borderRadius:
-                                      BorderRadius.all(Radius.circular(90)),
+                                          BorderRadius.all(Radius.circular(90)),
                                       child: Container(
                                         width: 90,
                                         height: 90,
@@ -176,7 +219,7 @@ class _CoinScreenExampleState extends State<CoinScreenExample> {
                                     color: kSecondaryColor,
                                     child: ClipRRect(
                                       borderRadius:
-                                      BorderRadius.all(Radius.circular(90)),
+                                          BorderRadius.all(Radius.circular(90)),
                                       child: Container(
                                         width: 90,
                                         height: 90,
@@ -195,7 +238,7 @@ class _CoinScreenExampleState extends State<CoinScreenExample> {
                                     color: kSecondaryColor,
                                     child: ClipRRect(
                                       borderRadius:
-                                      BorderRadius.all(Radius.circular(90)),
+                                          BorderRadius.all(Radius.circular(90)),
                                       child: Container(
                                         width: 90,
                                         height: 90,
@@ -214,7 +257,7 @@ class _CoinScreenExampleState extends State<CoinScreenExample> {
                               ),
                               Row(
                                 mainAxisAlignment:
-                                MainAxisAlignment.spaceEvenly,
+                                    MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Column(
                                     children: [
@@ -243,7 +286,7 @@ class _CoinScreenExampleState extends State<CoinScreenExample> {
                               ),
                               Row(
                                 mainAxisAlignment:
-                                MainAxisAlignment.spaceEvenly,
+                                    MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Column(
                                     children: [

@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 final firestoreInstance = FirebaseFirestore.instance;
-final uid = FirebaseAuth.instance.currentUser.uid;
+final currentUid = FirebaseAuth.instance.currentUser.uid;
 
 void signUp(
     {String name,
@@ -19,7 +19,7 @@ void signUp(
     List<String> friends,
     String avatar,
     int recycled}) {
-  firestoreInstance.collection("users").doc(uid).set({
+  firestoreInstance.collection("users").doc(currentUid).set({
     "name": name,
     "password": password,
     "email": email,

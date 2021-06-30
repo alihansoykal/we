@@ -1,6 +1,8 @@
+import 'package:WE/Resources/constants.dart';
+import 'package:WE/Screens/BottomNavigation/bottom_navigation.dart';
 import 'package:flutter/material.dart';
 
-Widget buildPopupDialog(BuildContext context, title) {
+Widget buildPopupDialog(BuildContext context, title, bool) {
   return AlertDialog(
     insetPadding: EdgeInsets.symmetric(horizontal: 30, vertical: 1),
     title: Text('Info'),
@@ -12,21 +14,34 @@ Widget buildPopupDialog(BuildContext context, title) {
       ],
     ),
     actions: <Widget>[
-      FlatButton(
+      TextButton(
         onPressed: () {
-          Navigator.of(context).pop();
+          if (bool == true) {
+            Navigator.of(context).pop();
+          } else {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  return BottomNavigation();
+                },
+              ),
+            );
+          }
         },
-        textColor: Theme.of(context).primaryColor,
-        child: Text('Close'),
+        child: Text(
+          'Close',
+          style: TextStyle(color: kPrimaryColor),
+        ),
       ),
     ],
   );
 }
 
-void popUp(context, string) {
+void popUp(context, string, bool) {
   showDialog(
     context: context,
-    builder: (BuildContext context) => buildPopupDialog(context, string),
+    builder: (BuildContext context) => buildPopupDialog(context, string, bool),
   );
 }
 
@@ -46,9 +61,9 @@ class PopUpButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FlatButton(
+    return TextButton(
         onPressed: () {
-          popUp(context, text);
+          popUp(context, text, bool);
         },
         child: widget);
   }

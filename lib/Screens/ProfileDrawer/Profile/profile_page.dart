@@ -35,7 +35,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 centerTitle: true,
                 title: Text(
                   "Profile Page",
-                  style: TextStyle(fontFamily: "Panthera", fontSize: 24),
+                  style: TextStyle(fontFamily: "Panthera", fontSize: 30),
                 ),
               ),
               backgroundColor: kSecondaryColor,
